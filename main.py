@@ -24,13 +24,23 @@ def main():
             api_key=key
       )
 
-      filename = Path("./LogicBench") / "data" / "LogicBench-Eval" / "BQA" / "first_order_logic" / "bidirectional_dilemma" / "data_instances.json"
+      #filename = Path("./LogicBench") / "data" / "LogicBench-Eval" / "BQA" / "first_order_logic" / "bidirectional_dilemma" / "data_instances.json"
       #ai_model = "qwen3-235b-a22b-instruct-2507" # 65%
-      ai_model = "gpt-oss-120b" # 71/80= 88.75%
+      #ai_model = "gpt-oss-120b" # 71/80= 88.75%
       #ai_model = "gemma-3-27b-it" # 65%
       #ai_model = "mistral-small-3.2-24b-instruct-2506" # 35/80=43.75%
       #ai_model = "llama-3.3-70b-instruct" # 67/80=83.75%
       #ai_model = "deepseek-r1-distill-llama-70b" # 21/42=50%
+
+      #filename = Path("./LogicBench") / "data" / "LogicBench-Eval" / "BQA" / "first_order_logic" / "modus_tollens" / "data_instances.json"
+      #ai_model = "qwen3-235b-a22b-instruct-2507"
+      #ai_model = "gpt-oss-120b" # 16/19=84.21%
+
+      filename = Path("./LogicBench") / "data" / "LogicBench-Eval" / "BQA" / "propositional_logic" / "constructive_dilemma" / "data_instances.json"
+      #ai_model = "qwen3-235b-a22b-instruct-2507"
+      ai_model = "gpt-oss-120b" # 16/19=84.21%
+
+      reasoningApi = True
 
       with open(filename, "r") as f:
             data = json.load(f)
@@ -48,22 +58,35 @@ def main():
                   print(f"Question: {qa_pair['question']}")
                   print(f"Answer: {qa_pair['answer']}")
 
-                  result = client.chat.completions.parse(
-                        model=ai_model,
-                        messages=[
-                              { "role": "system", "content": context },
-                              { "role": "user", "content": qa_pair['question'] },
-                        ],
-                        #max_tokens=16384,
-                        #temperature=0.7,
-                        #top_p=0.8,
-                        #presence_penalty=0,
-                        response_format=BQAModel #{ "type": "text" }
-                  )
-                  llm_answer = result.choices[0].message.parsed
-                  if llm_answer is None:
-                        print(result.choices[0].finish_reason)
-                        return
+                  # Call LLM
+                  if ai_model == "gpt-oss-120b" and reasoningApi:
+                        response = client.responses.parse(
+                              model=ai_model,
+                              input=[
+                                    { "role": "system", "content": context },
+                                    { "role": "user", "content": qa_pair['question'] },
+                              ],
+                              text_format=BQAModel,
+                              reasoning={
+                                    "effort": "high",   # low | medium | high
+                                    "quality": "high",    # normal | high
+                              },
+                        )     
+                        llm_answer = response.output_parsed
+                  else:
+                        result = client.chat.completions.parse(
+                              model=ai_model,
+                              messages=[
+                                    { "role": "system", "content": context },
+                                    { "role": "user", "content": qa_pair['question'] },
+                              ],
+                              response_format=BQAModel
+                        )
+                        llm_answer = result.choices[0].message.parsed
+                        if llm_answer is None:
+                              print(result.choices[0].finish_reason)
+                              return
+
                   is_answer_yes = qa_pair['answer'] == 'yes'
                   isCorrect = (is_answer_yes == llm_answer.is_answer_yes) # similar conclusion
 
