@@ -10,7 +10,7 @@ in terminal to download LogicBench files into the repo. Add 'SCW_OPENAI_SECRET_K
 
 Run with:
 
-      uvx git+https://github.com/you/llm_logic_bench
+      uvx git+https://github.com/martinlie/llm_logic_bench
 
 or just create an environment and run the 'main.py' file.
 
