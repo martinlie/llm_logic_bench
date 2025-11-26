@@ -1,10 +1,19 @@
 # llm_logic_bench
 
-Execute 
+llm_logic_bench is a lightweight test harness that runs a small set of predefined logical statements (sourced from logic_bench) against different LLM models. It provides a simple way to compare model responses on controlled logic tasks and evaluate consistency and reasoning quality.
+
+Prepare by executing: 
 
       git clone https://github.com/Mihir3009/LogicBench.git
 
-in terminal.
+in terminal to download LogicBench files into the repo. Add SCW_OPENAI_SECRET_KEY (Scaleway Secret Key) to the environment or a .env file.
 
-[https://github.com/Mihir3009/LogicBench]
+Run with:
+
+      uvx git+https://github.com/you/llm_logic_bench
+
+or just create an environment and run the 'main.py' file.
+
+References:
+* [https://github.com/Mihir3009/LogicBench]
 
