@@ -6,7 +6,7 @@ Prepare by executing:
 
       git clone https://github.com/Mihir3009/LogicBench.git
 
-in terminal to download LogicBench files into the repo. Add SCW_OPENAI_SECRET_KEY (Scaleway Secret Key) to the environment or a .env file.
+in terminal to download LogicBench files into the repo. Add 'SCW_OPENAI_SECRET_KEY' (Scaleway Secret Key) to the environment or a .env file.
 
 Run with:
 
@@ -15,5 +15,5 @@ Run with:
 or just create an environment and run the 'main.py' file.
 
 References:
-* [https://github.com/Mihir3009/LogicBench]
+* https://github.com/Mihir3009/LogicBench
 
