@@ -1,0 +1,6 @@
+[project]
+name = "llm_logic_bench"
+version = "0.1.0"
+
+[project.scripts]
+llm_logic_bench = "main:main"
