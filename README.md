@@ -16,4 +16,5 @@ or just create an environment and run the 'main.py' file.
 
 References:
 * https://github.com/Mihir3009/LogicBench
+* Parmar, M., Patel, N., Varshney, N., Nakamura, M., Luo, M., Mashetty, S., Mitra, A., & Baral, C. (2024). LogicBench: Towards Systematic Evaluation of Logical Reasoning Ability of Large Language Models. arXiv. https://doi.org/10.48550/ARXIV.2404.15522
 
